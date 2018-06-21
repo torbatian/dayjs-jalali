@@ -36,8 +36,9 @@ export default (options, dayjsClass, dayjsFactory) => {
   const oldParse = classProto.parse
 
   classProto.parse = function (cfg) {
-    cfg.date = cfg.date || undefined
+    cfg.date = cfg.date || new Date()
     const { date, jalali } = cfg
+
     if (jalali) {
       if ((typeof date === 'string') && (/.*$/i.test(date))) {
         const reg = date.match(REGEX_PARSE)
