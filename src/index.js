@@ -43,10 +43,9 @@ export default (options, dayjsClass, dayjsFactory) => {
       if ((typeof date === 'string') && (/.*$/i.test(date))) {
         const reg = date.match(REGEX_PARSE)
         if (reg) {
-          const utils = this.$utils()
           const [, year, month, day, time] = reg
           const { gy, gm, gd } = JALALI.toGregorian(Number(year), Number(month), Number(day))
-          cfg.date = `${gy}-${utils.padStart(gm, 2, '0')}-${utils.padStart(gd, 2, '0')}${time || ''}`
+          cfg.date = `${gy}-${String(gm).padStart(2, '0')}-${String(gd).padStart(2, '0')}${time || ''}`
         }
       }
     }
@@ -56,7 +55,6 @@ export default (options, dayjsClass, dayjsFactory) => {
 
   classProto.format = function (formatStr) {
     const locale = this.$locale()
-    const utils = this.$utils()
 
     if (locale.name === 'fa') {
       const str = formatStr || 'YYYY-MM-DDTHH:mm:ssZ'
@@ -74,7 +72,7 @@ export default (options, dayjsClass, dayjsFactory) => {
           case 'M':
             return String(month)
           case 'MM':
-            return utils.padStart(month, 2, '0')
+            return String(month).padStart(2, '0')
           case 'MMM':
             return getShort(locale.monthsShort, month - 1, locale.months, 3)
           case 'MMMM':
@@ -82,7 +80,7 @@ export default (options, dayjsClass, dayjsFactory) => {
           case 'D':
             return String(day)
           case 'DD':
-            return utils.padStart(day, 2, '0')
+            return String(day).padStart(2, '0')
           default:
             return match
         }

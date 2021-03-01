@@ -16,7 +16,6 @@ export default {
     babel({
       include: './src/**/*.js',
       exclude: 'node_modules/**'
-    }),
-    uglify()
+    })
   ]
 }
